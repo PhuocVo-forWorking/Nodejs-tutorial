@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href = "/css/styles.css">
+</head>
+<style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .title {
+        font-size: 25px;
+        font-weight: 600;
+        padding-bottom: 10px;
+    }
+
+    .table-content {
+        padding: 15px 20px;
+    }
+    tr:hover{
+        background-color: #ccc;
+    }
+    </style>
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/create">Create Users</a>
+      </div>
+      <div class="table-container">
+        <div class="title">List Users</div>
+        <table>
+            <tr>
+              <th>User ID</th>
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Action</th>
+            </tr>
+            <% for (let i = 0; i < listUsers.length; i++) { %>
+              <tr>
+                <td><%=listUsers[i].USER_ID %></td>
+                <td><%=listUsers[i].USER_NAME %></td>
+                <td><%=listUsers[i].EMAIL %></td>
+                <td><%=listUsers[i].ADDRESS %></td>
+                <td><%=listUsers[i].PHONE %></td>
+                <td>
+                  <button>Delete</button>
+                  <a href="/update/<%=listUsers[i].USER_ID %>">Edit</a>
+                </td>
+              </tr>
+              <% } %>
+          </table>
+      </div>
+
+</body>
+</html>

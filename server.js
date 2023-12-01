@@ -1,14 +1,37 @@
-const http = require('node:http');
+const express = require('express');
+const path = require('path');
+const configViewEngine = require('./src/config/viewEngine');
+const webRoutes = require('./src/routers/web');
+const router = require('./src/routers/web');
+const connection = require('./src/config/database');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+require('dotenv').config();
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n hoi phuocvo');
-});
+const app = express();
+const port = process.env.port || 8888; //port => hardcode .uat .prod
+const hostname = process.env.host_name;
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+//config req.body
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+//config template engine
+configViewEngine(app);
+
+// bao routers
+app.use('/', webRoutes);
+
+//test connection
+
+
+// connection.query(
+//   'SELECT * FROM Users u',
+//   function(err, results) {
+//     console.log(">>>results= ", results); // results contains rows returned by server
+//   }
+// );
+
+
+app.listen(port, hostname, () => {
+  console.log(`Example app listening on port ${port}`)
 });
